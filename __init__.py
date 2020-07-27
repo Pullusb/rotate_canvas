@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Rotate Canvas",
     "description": "Rotate Camera if in cam view, rotate view in free navigation",
-    "author": "Samuel Bernou, Christophe Seux, Jum",
+    "author": "Samuel Bernou, Christophe Seux",
     "version": (1, 0, 2),
     "blender": (2, 83, 0),
     "location": "Shortcut ctrl + alt + middle-mouse-click",
@@ -9,17 +9,6 @@ bl_info = {
     "doc_url": "",
     "category": "3D View"
 }
-
-"""
-Notes:
-    Samuel.B:
-        OpenGL drawing can be disabled by passing self.hud to False in invoke (mainly used for debugging)
-        Base script by Jum, simplified and modified to work in both view and camera with rotate axis method suggested by Christophe Seux
-    
-    Jum:
-        Script base. Thanks to bigLarry and Jum
-        https://blender.stackexchange.com/questions/136183/rotating-camera-view-in-grease-pencil-draw-mode-in-blender-2-8
-"""
 
 import bpy
 import math
@@ -133,7 +122,7 @@ class RC_OT_RotateCanvas(bpy.types.Operator):
         return {'RUNNING_MODAL'}
 
     def invoke(self, context, event):
-        self.hud = True
+        self.hud = False
         self.angle = 0.0# initialised for hud draw debug
         self.in_cam = context.region_data.view_perspective == 'CAMERA'
 
