@@ -1,8 +1,8 @@
 bl_info = {
     "name": "Rotate Canvas",
     "description": "Rotate Camera if in cam view, rotate view in free navigation",
-    "author": "Samuel Bernou, Christophe seux, Jum",
-    "version": (1, 0, 1),
+    "author": "Samuel Bernou, Christophe Seux, Jum",
+    "version": (1, 0, 2),
     "blender": (2, 83, 0),
     "location": "Shortcut ctrl + alt + middle-mouse-click",
     "warning": "View can 'jump' when switching ortho and persp view after rotation",
@@ -113,6 +113,11 @@ class RC_OT_RotateCanvas(bpy.types.Operator):
                 context.space_data.region_3d.view_rotation = rot.to_quaternion()
         
         if event.type in {'RIGHTMOUSE', 'LEFTMOUSE', 'MIDDLEMOUSE'} and event.value == 'RELEASE':
+            print('angle', self.angle)
+            if not self.angle:
+                self.report({'INFO'}, 'Reset')
+                aim = context.space_data.region_3d.view_rotation @ mathutils.Vector((0.0, 0.0, 1.0))#view vector
+                context.space_data.region_3d.view_rotation = aim.to_track_quat('Z','Y')#track Z, up Y
             self.execute(context)
             return {'FINISHED'}
         
