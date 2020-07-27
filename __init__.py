@@ -1,12 +1,12 @@
 bl_info = {
     "name": "Rotate Canvas",
-    "description": "Rotate Camera if in cam view, rotate view in free navigation",
+    "description": "Rotate camera if in cam view, view if in free navigation",
     "author": "Samuel Bernou, Christophe Seux",
     "version": (1, 0, 2),
     "blender": (2, 83, 0),
-    "location": "Shortcut ctrl + alt + middle-mouse-click",
-    "warning": "View can 'jump' when switching ortho and persp view after rotation",
-    "doc_url": "",
+    "location": "Shortcut ctrl + alt + right-mouse-click",
+    "warning": "",
+    "doc_url": "https://github.com/Pullusb/rotate_canvas",
     "category": "3D View"
 }
 
