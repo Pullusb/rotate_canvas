@@ -2,7 +2,7 @@ bl_info = {
     "name": "Rotate Canvas",
     "description": "Rotate camera if in cam view, view if in free navigation",
     "author": "Samuel Bernou, Christophe Seux",
-    "version": (1, 0, 2),
+    "version": (1, 0, 3),
     "blender": (2, 83, 0),
     "location": "Shortcut ctrl + alt + right-mouse-click",
     "warning": "",
@@ -102,9 +102,8 @@ class RC_OT_RotateCanvas(bpy.types.Operator):
                 context.space_data.region_3d.view_rotation = rot.to_quaternion()
         
         if event.type in {'RIGHTMOUSE', 'LEFTMOUSE', 'MIDDLEMOUSE'} and event.value == 'RELEASE':
-            print('angle', self.angle)
             if not self.angle:
-                self.report({'INFO'}, 'Reset')
+                # self.report({'INFO'}, 'Reset')
                 aim = context.space_data.region_3d.view_rotation @ mathutils.Vector((0.0, 0.0, 1.0))#view vector
                 context.space_data.region_3d.view_rotation = aim.to_track_quat('Z','Y')#track Z, up Y
             self.execute(context)
@@ -122,8 +121,8 @@ class RC_OT_RotateCanvas(bpy.types.Operator):
         return {'RUNNING_MODAL'}
 
     def invoke(self, context, event):
-        self.hud = False
-        self.angle = 0.0# initialised for hud draw debug
+        self.hud = get_addon_prefs().canvas_use_hud
+        self.angle = 0.0
         self.in_cam = context.region_data.view_perspective == 'CAMERA'
 
         if self.in_cam:
@@ -178,6 +177,12 @@ def auto_rebind(self, context):
 class RC_prefs(bpy.types.AddonPreferences):
     bl_idname = __name__
 
+    ## Use HUD
+    canvas_use_hud: BoolProperty(
+        name = "Use Hud",
+        description = "Display angle lines and angle value as text on viewport",
+        default = False)
+
     ## Canvas rotate
     canvas_use_shortcut: BoolProperty(
         name = "Use Default Shortcut",
@@ -215,12 +220,15 @@ class RC_prefs(bpy.types.AddonPreferences):
 
     def draw(self, context):
         layout = self.layout## random color
-
+        
+        layout.prop(self, 'canvas_use_hud')
         box = layout.box()
-        box.label(text='Canvas rotate options:')
+        box.label(text='Shortcut options:')
+
         box.prop(self, "canvas_use_shortcut", text='Bind shortcuts')
 
         if self.canvas_use_shortcut:
+            
             row = box.row()
             row.label(text="(Auto rebind when changing shortcut)")#icon=""
             # row.operator("prefs.rebind_shortcut", text='Bind/Rebind shortcuts', icon='FILE_REFRESH')#EVENT_SPACEKEY
