@@ -2,6 +2,8 @@
 
 Blender addon - Canvas rotation shortcut for both free and camera view
 
+### Since Blender 2.91, `Rotate canvas` is integrated in official addon `Grease Pencil Tools` bundled in the software. you just have to activate it.
+
 **[Download latest](https://github.com/Pullusb/rotate_canvas/archive/master.zip)**
 
 ---  
