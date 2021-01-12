@@ -2,7 +2,7 @@ bl_info = {
     "name": "Rotate Canvas",
     "description": "Rotate camera if in cam view, view if in free navigation",
     "author": "Samuel Bernou, Christophe Seux",
-    "version": (1, 0, 3),
+    "version": (1, 0, 4),
     "blender": (2, 83, 0),
     "location": "Shortcut ctrl + alt + right-mouse-click",
     "warning": "",
@@ -272,12 +272,11 @@ def register_keymaps():
         ## hardcoded
         # kmi = km.keymap_items.new('view3d.rotate_canvas', 'MIDDLEMOUSE', 'PRESS', ctrl=True, shift=False, alt=True)# ctrl + alt + mid mouse
         # kmi = km.keymap_items.new('view3d.rotate_canvas', type='RIGHTMOUSE', value="PRESS", alt=True, ctrl=True, shift=False, any=False)# ctrl + alt + right mouse
-        addon_keymaps.append(km)
+        addon_keymaps.append((km,kmi))
 
 def unregister_keymaps():
-    for km in addon_keymaps:
-        for kmi in km.keymap_items:
-            km.keymap_items.remove(kmi)
+    for km, kmi in addon_keymaps:
+        km.keymap_items.remove(kmi)
     addon_keymaps.clear()
     # del addon_keymaps[:]
 

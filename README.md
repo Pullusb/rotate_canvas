@@ -30,8 +30,11 @@ Original base script by [Jum on stackexchange](https://blender.stackexchange.com
 
 ## Changelog:
 
-1.0.3:
+1.0.4:
 
+- fix keymap register
+
+1.0.3:
 
 - Added addon-prefs option to enable HUD
 - demo gifs and images
