@@ -30,6 +30,10 @@ Original base script by [Jum on stackexchange](https://blender.stackexchange.com
 
 ## Changelog:
 
+1.0.5:
+
+- feat: add reset rotation shortcut in camera
+
 1.0.4:
 
 - fix keymap register
